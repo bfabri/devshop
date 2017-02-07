@@ -11,7 +11,7 @@ module.exports = function() {
     app.use(bodyParser.json());
     app.use(expressValidator());
 
-    consign().include('controllers').then('persistence').into(app);
+    consign().include('controllers').then('persistence').then('services').into(app);
 
     return app;
 }
