@@ -45,7 +45,18 @@ module.exports = function(app) {
 
                 resp.status(200).send(developer);
             });
+        }); 
+    });
+
+    app.get('/developers', function(req, resp) {
+        var developerClient = new app.services.DeveloperClient();
+        developerClient.list(function(exception, request, response, result) {
+            if (exception) {
+                resp.status(500).send(exception);
+                return;
+            }
+
+            resp.send(result);
         });
-        
     });
 }
