@@ -14,6 +14,10 @@ DeveloperClient.prototype.list = function(callback) {
     this._client.get('/users', callback);
 }
 
+DeveloperClient.prototype.findByUserName = function(username, callback) {
+    this._client.get('/users/' + username, callback);
+}
+
 module.exports = function() {
     return DeveloperClient;
 }
