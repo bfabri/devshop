@@ -10,8 +10,12 @@ function DeveloperClient() {
     });
 }
 
-DeveloperClient.prototype.list = function(callback) {
-    this._client.get('/users', callback);
+DeveloperClient.prototype.list = function(org, callback) {
+    var endpoint = '/users';
+    if (org) {
+        endpoint = '/orgs/' + org + '/members';
+    }
+    this._client.get(endpoint, callback);
 }
 
 DeveloperClient.prototype.findByUserName = function(username, callback) {
