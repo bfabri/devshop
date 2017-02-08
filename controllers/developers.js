@@ -51,8 +51,10 @@ module.exports = function(app) {
     });
 
     app.get('/developers', function(req, resp) {
+        var org = req.query.org;
+
         var developerClient = new app.services.DeveloperClient();
-        developerClient.list(function(exception, request, response, results) {
+        developerClient.list(org, function(exception, request, response, results) {
             if (exception) {
                 resp.status(500).send(exception);
                 return;
