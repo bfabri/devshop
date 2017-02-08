@@ -120,9 +120,46 @@ describe('CartController', function() {
     it('removing developer from cart', function(done) {
         req.post('/cart/developer')
             .send({name:"test", price: 200.57})
-            .expect(200);
+            .end(function(err, resp) {
+                if (err) throw err;
 
-        req.delete('/cart/developer/' + 1)
-            .expect(200, done);
+                req.delete('/cart/developer/' + 1)
+                    .expect(200, done);
+            });
+    });
+
+    it('getting developers from empty cart', function(done) {
+        req.get('/cart/developers')
+            .expect(200)
+            .end(function(err, resp) {
+                if (err) throw err;
+
+                assert.equal(resp.body.length, 0);
+                done();
+            });
+    });
+
+    it('getting developers from populated cart', function(done) {
+        req.post('/cart/developer')
+            .send({name:"test", price: 200.57})
+            .end(function(err, resp) {
+                if (err) throw err;
+
+                req.post('/cart/developer')
+                    .send({name:"test2", price: 202.57})
+                    .end(function(err2, resp2) {
+                        if (err2) throw err2;
+                        
+                        req.get('/cart/developers')
+                            .expect(200)
+                            .end(function(err3, resp3) {
+                                if (err3) throw err3;
+
+                                assert.equal(resp3.body.length, 2);
+                                done();
+                            });
+
+                    });
+            });
     });
 });

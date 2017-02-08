@@ -52,7 +52,7 @@ module.exports = function(app) {
         }); 
     });
 
-    app.get('/cart', function(req, resp) {
+    app.get('/cart/developers', function(req, resp) {
         var connection = app.persistence.connectionFactory();
         var cartDao = new app.persistence.CartDao(connection);
         cartDao.pick(function(exception, developers) {

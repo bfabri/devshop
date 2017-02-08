@@ -4,7 +4,7 @@ var assert = require('assert');
 
 describe('DevelopersController', function() {
     it('list of developers in json format', function(done) {
-        this.timeout(5000);
+        this.timeout(10000);
 
         req.get('/developers')
             .expect('Content-Type', /json/)
