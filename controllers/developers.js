@@ -1,7 +1,6 @@
 var async = require('async');
 
 module.exports = function(app) {
-    
     app.get('/developers', function(req, resp) {
         var org = req.query.org;
 
