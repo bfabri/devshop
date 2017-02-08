@@ -5,8 +5,10 @@ module.exports = function(app) {
     app.post('/developers/developer', function(req, resp) {
         var developer = req.body;
         
-        req.assert('name', 'name is required and has a maximum of 50 characters').notEmpty().len(0, 50);
-        req.assert('price', 'price is required and must be a decimal value').notEmpty().isFloat();
+        req.assert('name', 'name is required').notEmpty();
+        req.assert('name', 'name must has a maximum of 50 characters').len(0, 50);
+        req.assert('price', 'price is required').notEmpty();
+        req.assert('price', 'price must be a decimal value').isFloat();
         req.getValidationResult().then(function(result) {
             if (!result.isEmpty()) {
                 resp.status(400).send(result.array());
