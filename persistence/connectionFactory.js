@@ -18,6 +18,17 @@ function createDBConnection() {
             database: 'devshop_test'
         });  
     }
+
+    if (process.env.NODE_ENV == 'production') {
+        var connectionUrl = process.env.CLEARDB_DATABASE_URL;
+        var groups = connectionUrl.match(/mysql:\/\/(.*):(.*)@(.*)\/(.*)\?reconnect=true/);
+        return mysql.createConnection({
+            host: groups[3],
+            user: groups[1],
+            password: groups[2],
+            database: groups[4]
+        });  
+    }
 }
 
 module.exports = function() {
