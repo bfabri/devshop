@@ -18,16 +18,25 @@
       </div>
 
       <div class="row">
-        <h2>Add a developer</h2>
-        <form class="form-inline" role="form">
-          <div class="form-group">
-            <input type="text" placeholder="GitHub Username" class="form-control">
-          </div>
-          <div class="form-group">
-            <input type="text" placeholder="Price" class="form-control">
-          </div>
-          <button type="submit" class="btn btn-success">Add</button>
+        <h2>Developers</h2>
+
+        <form class="form-inline">
+          <input type="text" class="form-control" id="organization" placeholder="Organization">
+          <button class="btn btn-primary search">Search</button>
         </form>
+
+        <table class="table developers">
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Username</th>
+              <th>Price</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
       </div>
 
       <div class="cart row">
@@ -41,16 +50,6 @@
             </tr>
           </thead>
           <tbody>
-            <tr class="product">
-              <td>brenoc</td>
-              <td>$224</td>
-              <td><button class="btn btn-danger pull-right">Remove</button></td>
-            </tr>
-            <tr class="product">
-              <td>firstdoit</td>
-              <td>$416</td>
-              <td><button class="btn btn-danger pull-right">Remove</button></td>
-            </tr>
           </tbody>
         </table>
       </div>
@@ -60,10 +59,6 @@
           <div class="row">
             <table class="table">
               <tbody>
-                <tr class="total">
-                  <td>Total</td>
-                  <td>$640</td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -72,7 +67,6 @@
 
     </div> <!-- /container -->
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="lib/jquery/jquery-1.11.2.min.js"><\/script>')</script>
 
     <script src="lib/bootstrap/bootstrap.js"></script>
