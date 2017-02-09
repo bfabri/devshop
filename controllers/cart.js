@@ -3,6 +3,8 @@ module.exports = function(app) {
     app.post('/cart/developer', function(req, resp) {
         var developer = req.body;
         
+        req.assert('id', 'id is required').notEmpty();
+        req.assert('id', 'id must be a integer value').isInt();
         req.assert('name', 'name is required').notEmpty();
         req.assert('name', 'name must has a maximum of 50 characters').len(0, 50);
         req.assert('price', 'price is required').notEmpty();
@@ -15,16 +17,28 @@ module.exports = function(app) {
 
             var connection = app.persistence.connectionFactory();
             var cartDao = new app.persistence.CartDao(connection);
-            cartDao.add(developer, function(exception, result) {
+            cartDao.pick(developer.id, function(exception, dbDeveloper) {
                 if (exception) {
                     resp.status(500).send(exception);
                     return;
                 }
 
-                developer.id = result.insertId;
-                resp.status(201).send(developer);
+                if (dbDeveloper && dbDeveloper.length > 0) {
+                    resp.status(400).send([{param: 'id', msg: 'developer is already in cart'}]);
+                    return;
+                }
+
+                cartDao.add(developer, function(exception2, result) {
+                    if (exception2) {
+                        console.log(exception2);
+                        resp.status(500).send(exception2);
+                        return;
+                    }
+
+                    resp.status(201).send(developer);
+                    connection.end();
+                });
             });
-            connection.end();
         });
     });
 
@@ -47,23 +61,22 @@ module.exports = function(app) {
                 }
 
                 resp.status(200).send(developer);
+                connection.end();
             });
-            connection.end();
         }); 
     });
 
     app.get('/cart/developers', function(req, resp) {
         var connection = app.persistence.connectionFactory();
         var cartDao = new app.persistence.CartDao(connection);
-        cartDao.pick(function(exception, developers) {
+        cartDao.list(function(exception, developers) {
             if (exception) {
                 resp.status(500).send(exception);
                 return;
             }
 
             resp.status(200).send(developers);
+            connection.end();
         });
-        connection.end();
-        
     });
 }

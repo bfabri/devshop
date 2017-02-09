@@ -10,8 +10,12 @@ CartDao.prototype.delete = function(developer, callback) {
     this._connection.query('DELETE FROM developer WHERE id = ?', developer.id, callback);
 }
 
-CartDao.prototype.pick = function(callback) {
+CartDao.prototype.list = function(callback) {
     this._connection.query('SELECT * FROM developer', callback);
+}
+
+CartDao.prototype.pick = function(id, callback) {
+    this._connection.query('SELECT * FROM developer WHERE id = ?', id, callback);
 }
 
 module.exports = function() {

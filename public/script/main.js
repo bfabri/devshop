@@ -45,7 +45,7 @@ $(function() {
                 $tr.append($('<td />').append($('<img class="img-responsive img-thumbnail" height="50px" width="50px" />').attr('src', developer.avatar_url)));
                 $tr.append($('<td />').html(developer.name));
                 $tr.append($('<td />').html('$' + developer.price));
-                $tr.append($('<td />').append($('<button class="btn btn-success pull-right add" />').html('Add').attr('data-name', developer.name).attr('data-price', developer.price)));
+                $tr.append($('<td />').append($('<button class="btn btn-success pull-right add" />').html('Add').attr('data-id', developer.id).attr('data-name', developer.name).attr('data-price', developer.price)));
                 $('table.developers tbody').append($tr);
             }
 
@@ -66,11 +66,40 @@ $(function() {
     });
 
     $(document).on('click', 'button.add', function() {
+        $('table.developers tbody tr').removeClass('danger').removeClass('success').removeClass('pointer').popover('destroy');
+
+        var id = $(this).attr('data-id');
         var name = $(this).attr('data-name');
         var price = $(this).attr('data-price');
 
-        $.post('http://localhost:3000/cart/developer', {'name': name, 'price': price}, function() {
+        var $tr = $(this).parent().parent();
+
+        $.post('http://localhost:3000/cart/developer', {'id': id, 'name': name, 'price': price}, function(data) {
+            $tr.addClass('success').addClass('pointer');
+            $tr.popover({
+                title: 'Success!',
+                html: true,
+                content: 'The developer <b>' + name + '</b> was successfully added to the cart.',
+                placement: 'top'
+            });
+
             loadCart();
+        }).fail(function(jqXHR){
+            var data = jqXHR.responseJSON;
+            
+            var popoverContent = '<ul>';
+            for (var i = 0; i < data.length; i++) {
+                popoverContent += '<li>' + data[i].msg + '</li>';
+            }
+            popoverContent += '</ul>';
+            
+            $tr.addClass('danger').addClass('pointer');
+            $tr.popover({
+                title: 'Opps...',
+                html: true,
+                content: popoverContent,
+                placement: 'top'
+            });
         });
     });
 
