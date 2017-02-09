@@ -14,7 +14,7 @@ function createDBConnection() {
         return mysql.createConnection({
             host: 'localhost',
             user: 'devshop_test',
-            password: 'ruWOz7',
+            password: 'S8W424',
             database: 'devshop_test'
         });  
     }
