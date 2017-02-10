@@ -6,13 +6,14 @@ describe('CartController', function() {
     beforeEach(function(done) {
         this.timeout(5000);
 
-        var conn = express.persistence.connectionFactory();
-        conn.query("TRUNCATE TABLE developer", function(err, result) {
-            if(!err) {
-                done();
-            }
+        express.persistence.connectionFactory(function(err, connection) {
+            connection.query("TRUNCATE TABLE developer", function(err, result) {
+                connection.release();
+                if(!err) {
+                    done();
+                }
+            });
         });
-        conn.end();
     });
 
      it('adding developer to cart withou name', function(done) {

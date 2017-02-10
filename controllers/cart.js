@@ -15,8 +15,7 @@ module.exports = function(app) {
                 return;
             }
 
-            var connection = app.persistence.connectionFactory();
-            var cartDao = new app.persistence.CartDao(connection);
+            var cartDao = new app.persistence.CartDao(app);
             cartDao.pick(developer.id, function(exception, dbDeveloper) {
                 if (exception) {
                     resp.status(500).send(exception);
@@ -36,7 +35,6 @@ module.exports = function(app) {
                     }
 
                     resp.status(201).send(developer);
-                    connection.end();
                 });
             });
         });
@@ -52,8 +50,7 @@ module.exports = function(app) {
 
             var developer = {id: req.params.id};
 
-            var connection = app.persistence.connectionFactory();
-            var cartDao = new app.persistence.CartDao(connection);
+            var cartDao = new app.persistence.CartDao(app);
             cartDao.delete(developer, function(exception, result) {
                 if (exception) {
                     resp.status(500).send(exception);
@@ -61,14 +58,12 @@ module.exports = function(app) {
                 }
 
                 resp.status(200).send(developer);
-                connection.end();
             });
         }); 
     });
 
     app.get('/cart/developers', function(req, resp) {
-        var connection = app.persistence.connectionFactory();
-        var cartDao = new app.persistence.CartDao(connection);
+        var cartDao = new app.persistence.CartDao(app);
         cartDao.list(function(exception, developers) {
             if (exception) {
                 resp.status(500).send(exception);
@@ -76,7 +71,6 @@ module.exports = function(app) {
             }
 
             resp.status(200).send(developers);
-            connection.end();
         });
     });
 }
