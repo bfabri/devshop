@@ -22,14 +22,12 @@ function createDBConnection() {
     if (process.env.NODE_ENV == 'production') {
         var connectionUrl = process.env.CLEARDB_DATABASE_URL;
         var groups = connectionUrl.match(/mysql:\/\/(.*):(.*)@(.*)\/(.*)\?reconnect=true/);
-        var conn = mysql.createConnection({
+        return mysql.createConnection({
             host: groups[3],
             user: groups[1],
             password: groups[2],
             database: groups[4]
-        });
-        conn.end({ timeout: 60000 });
-        return conn;
+        });  
     }
 }
 
