@@ -8,7 +8,7 @@ app.listen(port, function() {
 app.get('/', function(req, resp) {
     var baseUrl = 'http://localhost:3000';
     if (process.env.NODE_ENV == 'production') {
-        baseUrl = 'https://fabri-devshop.herokuapp.com/';
+        baseUrl = 'https://fabri-devshop.herokuapp.com';
     }
     
     resp.render('app', {baseUrl: baseUrl});
