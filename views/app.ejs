@@ -7,8 +7,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="lib/bootstrap/bootstrap.css">
-    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="/lib/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="/style/main.css">
   </head>
 
   <body>
@@ -67,9 +67,11 @@
 
     </div> <!-- /container -->
 
-    <script>window.jQuery || document.write('<script src="lib/jquery/jquery-1.11.2.min.js"><\/script>')</script>
-
-    <script src="lib/bootstrap/bootstrap.js"></script>
-    <script src="script/main.js"></script>
+    <script>window.jQuery || document.write('<script src="/lib/jquery/jquery-1.11.2.min.js"><\/script>')</script>
+    <script>
+        var baseUrl = '<%=baseUrl%>';
+    </script>
+    <script src="/lib/bootstrap/bootstrap.js"></script>
+    <script src="/script/main.js"></script>
   </body>
 </html>

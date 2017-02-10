@@ -3,7 +3,7 @@ $(function() {
         $('table.cart tbody').empty();
         $('table.cart tbody').append($('<img class="loader" src="img/ajax-loader.gif" />'));
 
-         $.get('http://localhost:3000/cart/developers', function(developers) {
+         $.get(baseUrl + '/cart/developers', function(developers) {
             $('table.cart tbody').empty();
 
             var total = 0;
@@ -31,7 +31,7 @@ $(function() {
         $('table.developers tbody').empty();
         $('table.developers tbody').append($('<img class="loader" src="img/ajax-loader.gif" />'));
 
-        var endpointUrl = 'http://localhost:3000/developers';
+        var endpointUrl = baseUrl + '/developers';
         var organization = $('#organization').val();
         if (organization) {
             endpointUrl += '?org=' + organization;
@@ -57,7 +57,7 @@ $(function() {
         var id = $(this).attr('data-id');
         
         $.ajax({
-            url: 'http://localhost:3000/cart/developer/' + id,
+            url: baseUrl + '/cart/developer/' + id,
             type: 'DELETE',
             success: function() {
                 loadCart();
@@ -74,7 +74,7 @@ $(function() {
 
         var $tr = $(this).parent().parent();
 
-        $.post('http://localhost:3000/cart/developer', {'id': id, 'name': name, 'price': price}, function(data) {
+        $.post(baseUrl + '/cart/developer', {'id': id, 'name': name, 'price': price}, function(data) {
             $tr.addClass('success').addClass('pointer');
             $tr.popover({
                 title: 'Success!',
