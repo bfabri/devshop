@@ -1,5 +1,6 @@
 var app = require('./config/custom-express')();
 
-app.listen(3000, function() {
-    console.log('Servidor rodando');
+var port = process.env.PORT || 3000;
+app.listen(port, function() {
+    console.log('Server is running using port ' + port);
 });

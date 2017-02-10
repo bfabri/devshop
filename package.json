@@ -4,7 +4,8 @@
   "description": "Online Developer shop",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test mocha",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -29,5 +30,8 @@
     "mocha": "^3.2.0",
     "should": "^11.2.0",
     "supertest": "^3.0.0"
+  },
+  "engines": {
+    "node": "v6.9.5"
   }
 }

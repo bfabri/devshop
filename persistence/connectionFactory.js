@@ -11,6 +11,7 @@ function createDBConnection() {
     }
 
     if (process.env.NODE_ENV == 'test') {
+        console.log('Running in test env');
         return mysql.createConnection({
             host: 'localhost',
             user: 'devshop_test',
